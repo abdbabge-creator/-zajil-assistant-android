@@ -1,0 +1,48 @@
+name: بناء تطبيق أندرويد
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: تحميل الملفات
+        uses: actions/checkout@v4
+
+      - name: تجهيز Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: تثبيت الحزم
+        run: npm install
+
+      - name: بناء الموقع
+        run: npm run build
+
+      - name: تجهيز أندرويد
+        run: |
+          npm install @capacitor/core @capacitor/cli @capacitor/android
+          npx cap init ZajilAssistant com.zajil.assistant --web-dir=dist
+          npx cap add android
+          npx cap sync android
+
+      - name: تجهيز Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: بناء APK
+        run: |
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleDebug
+
+      - name: حفظ ملف APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: zajil-assistant-apk
+          path: android/app/build/outputs/apk/debug/app-debug.apk
