@@ -1,0 +1,12 @@
+{
+  "name": "طائر المساعد الذكي - زاجل",
+  "description": "مساعد شخصي ذكي باللغة العربية على شكل طائر كرتوني لطيف ومتحرك يستمع للأوامر الصوتية وينفذها بصوت عربي فصيح دون نصوص كتابية.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone",
+    "geolocation"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
