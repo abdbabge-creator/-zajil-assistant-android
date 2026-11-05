@@ -1,7 +1,11 @@
+
 name: بناء تطبيق أندرويد
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
 
 jobs:
   build:
